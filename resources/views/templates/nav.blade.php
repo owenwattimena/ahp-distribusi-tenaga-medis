@@ -16,6 +16,9 @@
                 case 'bkd':
                     $bg = '#009b4c';
                     break;
+                default:
+                    $bg = 'dark';
+                    break;
             }
         @endphp
         <a class="navbar-brand" style="background-color: {{ $bg }}" href="#">
