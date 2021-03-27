@@ -21,7 +21,7 @@
                     break;
             }
         @endphp
-        <a class="navbar-brand" style="background-color: {{ $bg }}" href="#">
+        <a class="navbar-brand" style="background-color: {!! $bg !!}" href="#">
             <strong><i class="icon fa fa-user-md"></i>
                 SPK </strong> <small>SIGADIS</small>
         </a>
