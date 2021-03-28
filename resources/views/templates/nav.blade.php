@@ -11,9 +11,12 @@
         @php
             switch (\Auth::user()->level) {
                 case 'dinkes':
+                    $bg = '#16b3ac';
+                    break;
+                case 'gubernur':
                     $bg = '#009b4c';
                     break;
-                case 'bkd':
+                case 'puskesmas':
                     $bg = '#009b4c';
                     break;
                 default:

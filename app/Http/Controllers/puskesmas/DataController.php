@@ -15,7 +15,7 @@ class DataController extends Controller
     {
         $data['kriteria'] = Kriteria::with('subkriteria')->get();
         $data['dataPkm'] = DataPuskesmas::where('id_puskesmas', \Auth::user()->id)->get();
-        return view('puskesmas.data',$data);
+        return view('puskesmas.data.index',$data);
     }
 
     public function post(Request $request)
@@ -49,9 +49,9 @@ class DataController extends Controller
         return redirect()->back()->with($alert);
     }
 
-    public function puskesmas()
-    {
-        $data['puskesmas'] = User::where('level', 'puskesmas')->get();
-        return view('bkd.puskesmas.index',$data);
-    }
+    // public function puskesmas()
+    // {
+    //     $data['puskesmas'] = User::where('level', 'puskesmas')->get();
+    //     return view('bkd.puskesmas.index',$data);
+    // }
 }

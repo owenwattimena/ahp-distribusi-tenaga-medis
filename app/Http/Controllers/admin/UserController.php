@@ -75,7 +75,6 @@ class UserController extends Controller
         $user->alamat   = $request->alamat;
         $user->level    = $request->level;
         $user->username = $request->username;
-        $user->password = Hash::make($request->password);
 
         try {
             if($user->save())

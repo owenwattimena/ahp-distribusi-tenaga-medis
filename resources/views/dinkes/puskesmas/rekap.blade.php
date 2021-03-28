@@ -12,40 +12,47 @@
 @endsection
 
 @section('page')
-    Data Prioritas
+    Rekap Tenaga Medis {{ $puskesmas->nama }}
 @endsection
 
 @section('path')
     <li><a href="{{ url('/') }}">Home</a></li>
-    <li class="active">Data Prioritas</li>
+    <li><a href="{{ url('/puskesmas') }}">Puskesmas</a></li>
+    <li class="active">Rekap</li>
 @endsection
 
 @section('content')
     <div class="row">
         <div class="col-md-12">
+            <div class="text-right" style="margin-bottom:10px">
+                <a href="{{ route('dinkes.puskesmas.rekap.tambah', $puskesmas->id) }}"
+                    class="btn btn-primary btn-sm rounded-0"><i class="fas fa-user-cog"></i>
+                    TAMBAH
+                </a>
+            </div>
             <div class="table-responsive">
                 <table id="table" class="table table-sm table-striped">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Puskesmas</th>
-                            <th>
-
-                            </th>
+                            <th>Tahun</th>
+                            @foreach ($alternatif as $item)
+                                <th>{{ $item->alternatif }}</th>
+                            @endforeach
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @php
-                            $no = 0;
-                        @endphp
-                        @foreach ($puskesmas as $item)
+                        @foreach ($rekap as $item)
                             <tr>
-                                <td>{{ ++$no }}</td>
-                                <td>{{ $item->nama }}</td>
+                                <td>{{ $item->tahun }}</td>
+                                @foreach ($detailRekap->where('id_rekap_distribusi', $item->id) as $item)
+                                    <td>{{ $item->jumlah }}</td>
+                                @endforeach
                                 <td>
-                                    <a href="{{ route('dinkes.prioritas.detail', $item->id) }}"
-                                        class="btn btn-success btn-sm rounded-0"><i class="fa fa-eye"></i>
-                                        Lihat Ranking
+                                    <a href="#" class="btn btn-danger btn-sm rounded-0"
+                                        onclick="return confirm('Yakin ingin menghapus data?')"><i
+                                            class="fas fa-user-cog"></i>
+                                        HAPUS
                                     </a>
                                 </td>
                             </tr>

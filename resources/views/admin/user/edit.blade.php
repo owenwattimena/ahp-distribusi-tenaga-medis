@@ -34,9 +34,9 @@
                             <label for="level">Level</label>
                             <select class="form-control" id="level" name="level" placeholder="Level" required>
                                 <option {{ $user->level == 'admin' ? 'selected' : '' }} value="admin">Admin</option>
-                                <option {{ $user->level == 'dinkes' ? 'selected' : '' }} value="dinkes">Dinas Kesehatan
+                                <option {{ $user->level == 'gubernur' ? 'selected' : '' }} value="gubernur">Gubernur
                                 </option>
-                                <option {{ $user->level == 'bkd' ? 'selected' : '' }} value="bkd">Badan Kepegawaian Daerah
+                                <option {{ $user->level == 'dinkes' ? 'selected' : '' }} value="dinkes">Dinas Kesehatan
                                 </option>
                                 <option {{ $user->level == 'puskesmas' ? 'selected' : '' }} value="puskesmas">Puskesmas
                                 </option>

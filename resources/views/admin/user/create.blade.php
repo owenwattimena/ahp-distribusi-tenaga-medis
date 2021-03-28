@@ -37,8 +37,8 @@
                             <label for="level">Level</label>
                             <select class="form-control" id="level" name="level" placeholder="Level" required>
                                 <option value="admin">Admin</option>
+                                <option value="gubernur">Gubernur</option>
                                 <option value="dinkes">Dinas Kesehatan</option>
-                                <option value="bkd">Badan Kepegawaian Daerah</option>
                                 <option value="puskesmas">Puskesmas</option>
                             </select>
                             @error('level')

@@ -8,7 +8,7 @@ use App\Http\Controllers\admin\RankingController;
 use App\Http\Controllers\admin\KriteriaController;
 use App\Http\Controllers\puskesmas\DataController;
 use App\Http\Controllers\admin\AlternatifController;
-use App\Http\Controllers\dinkes\PrioritasController;
+use App\Http\Controllers\dinkes\PuskesmasController;
 use App\Http\Controllers\admin\SubKriteriaController;
 
 /*
@@ -89,13 +89,16 @@ Route::middleware(['auth'])->group(function () {
     
     // =========================================================================================== //
     
-    Route::prefix('prioritas')->group(function () {
-        Route::get('/', [PrioritasController::class, 'index'])->name('dinkes.prioritas');
-        Route::get('/{id}/detail', [PrioritasController::class, 'detail'])->name('dinkes.prioritas.detail');
-    });
     Route::prefix('puskesmas')->group(function () {
-        Route::get('/', [DataController::class, 'puskesmas'])->name('puskesmas');
+        Route::get('/', [PuskesmasController::class, 'index'])->name('dinkes.puskesmas');
+        Route::get('/{id}/rangking', [PuskesmasController::class, 'rangking'])->name('dinkes.puskesmas.ranking');
+        Route::get('/{id}/rekap', [PuskesmasController::class, 'rekap'])->name('dinkes.puskesmas.rekap');
+        Route::get('/{id}/rekap/tambah', [PuskesmasController::class, 'tambahRekap'])->name('dinkes.puskesmas.rekap.tambah');
+        Route::post('/{id}/rekap/tambah', [PuskesmasController::class, 'postRekap'])->name('dinkes.puskesmas.rekap.post');
     });
+    // Route::prefix('puskesmas')->group(function () {
+    //     Route::get('/', [DataController::class, 'puskesmas'])->name('puskesmas');
+    // });
     
     
 });

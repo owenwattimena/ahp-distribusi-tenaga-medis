@@ -8,17 +8,27 @@ use App\Models\Prioritas;
 use App\Models\Alternatif;
 use Illuminate\Http\Request;
 use App\Models\DataPuskesmas;
+use App\Models\RekapDistribusi;
 use App\Http\Controllers\Controller;
+use App\Models\DetailRekapDistribusi;
 
-class PrioritasController extends Controller
+class PuskesmasController extends Controller
 {
     public function index()
     {
         $data['puskesmas'] = User::where('level', 'puskesmas')->get();
-        return view('dinkes.prioritas.index',$data);
+        return view('dinkes.puskesmas.index',$data);
+    }
+    public function rekap($id)
+    {
+        $data['alternatif'] = Alternatif::all();
+        $data['puskesmas'] = User::findOrFail($id);
+        $data['rekap'] = RekapDistribusi::where('id_puskesmas', $id)->get();
+        $data['detailRekap'] = DetailRekapDistribusi::all();
+        return view('dinkes.puskesmas.rekap',$data);
     }
 
-    public function detail($id)
+    public function rangking($id)
     {
         $data['puskesmas'] = User::findOrFail($id);
         $data['dataPkm'] = DataPuskesmas::where('id_puskesmas', $id)->with('subkriteria')->get();
@@ -69,6 +79,45 @@ class PrioritasController extends Controller
             ['rank', 'desc']
         ]);
 
-        return view('dinkes.prioritas.detail',$data);
+        return view('dinkes.puskesmas.ranking',$data);
+    }
+
+    public function tambahRekap($id)
+    {
+        $data['puskesmas'] = User::findOrFail($id);
+        $data['alternatif'] = Alternatif::all();
+        return view('dinkes.puskesmas.tambahrekap',$data);
+    }
+
+    public function postRekap(Request $request, $id)
+    {
+        $request->validate([
+            "tahun" => "required|unique:rekap_distribusi"
+        ]);
+
+        $rekap = new RekapDistribusi;
+        $rekap->id_puskesmas = $id;
+        $rekap->tahun = $request->tahun;
+        if($rekap->save())
+        {
+            foreach ($request->except(['_token', 'tahun']) as $key => $value) {
+                $detailRekap =  new DetailRekapDistribusi;
+                $detailRekap->id_rekap_distribusi = $rekap->id;
+                $detailRekap->id_alternatif = $key;
+                $detailRekap->jumlah = $value;
+                $detailRekap->save();
+            }
+            $alert = [
+                "tipe" => "alert-success",
+                "pesan"  => "Data rekap berhasil disimpan!"
+            ];
+            return redirect()->route('dinkes.puskesmas.rekap',['id' => $id])->with($alert);
+        }
+        $alert = [
+            "tipe" => "alert-danger",
+            "pesan"  => "Data rekap gagal disimpan!"
+        ];
+        return redirect()->back()->with($alert);
+
     }
 }

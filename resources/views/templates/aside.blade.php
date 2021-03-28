@@ -1,6 +1,37 @@
 <nav class="navbar-default navbar-side" role="navigation">
     <div class="sidebar-collapse">
         <ul class="nav" id="main-menu">
+            @switch(\Auth::user()->level)
+                @case('dinkes')
+                <li class="pb-3 text-center text-white">
+                    <img width="80" src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Lambang_Ambon.png"
+                        alt="LOGO DINKES">
+                    <h3>
+                        {{ \Auth::user()->nama }}
+                    </h3>
+                </li>
+                @break
+                @case('gubernur')
+                <li class="pb-3 text-center text-white">
+                    <img width="80" src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Lambang_Ambon.png"
+                        alt="LOGO gubernur">
+                    <h3>
+                        {{ \Auth::user()->nama }}
+                    </h3>
+                </li>
+                @break
+                @case('puskesmas')
+                <li class="pb-3 text-center text-white">
+                    <img width="80" src="https://puskesmasmadurejo.files.wordpress.com/2015/03/logo-puskesmas.png"
+                        alt="LOGO PUSKESMAS">
+                    <h3>
+                        {{ \Auth::user()->nama }}
+                    </h3>
+                </li>
+                @break
+                @default
+
+            @endswitch
             <li>
                 <a class="{{ request()->is('/') ? 'active-menu ' : '' }}" href="{{ url('/') }}"><i
                         class="fa fa-dashboard"></i> Dashboard</a>
@@ -50,14 +81,14 @@
                 @break
                 @case("dinkes")
                 <li>
-                    <a class="{{ request()->is('prioritas') || request()->is('prioritas/*') ? 'active-menu ' : '' }}"
-                        href="{{ route('dinkes.prioritas') }}"><i class="fa fa-archive"></i> Data Nilai Prioritas</a>
+                    <a class="{{ request()->is('puskesmas') || request()->is('puskesmas/*') ? 'active-menu ' : '' }}"
+                        href="{{ route('dinkes.puskesmas') }}"><i class="fa fa-archive"></i> Data Puskesmas</a>
                 </li>
                 @break
-                @case("bkd")
+                @case("gubernur")
                 <li>
                     <a class="{{ request()->is('puskesmas') ? 'active-menu ' : '' }}"
-                        href="{{ route('puskesmas') }}"><i class="fa fa-archive"></i> Data Puskesmas</a>
+                        href="{{ route('dinkes.puskesmas') }}"><i class="fa fa-archive"></i> Data Puskesmas</a>
                 </li>
                 @break
                 @default

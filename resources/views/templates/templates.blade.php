@@ -26,6 +26,16 @@ Website: http://www.webthemez.com/
     <link rel="stylesheet" href="{{ asset('assets/js/Lightweight-Chart/cssCharts.css') }}">
 
     @yield("style")
+    <style>
+        .pb-3 {
+            padding-bottom: 15px !important;
+        }
+
+        .text-white {
+            color: white !important;
+        }
+
+    </style>
 </head>
 
 <body>
