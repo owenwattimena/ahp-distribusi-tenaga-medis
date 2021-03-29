@@ -43,15 +43,17 @@
                                 <td>{{ ++$no }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>
-                                    <a href="{{ route('dinkes.puskesmas.ranking', $item->id) }}"
-                                        class="btn btn-success btn-sm rounded-0"><i class="fa fa-eye"></i>
-                                        Lihat Ranking
-                                    </a>
+                                    @if (\Auth::user()->level == 'dinkes')
+                                        <a href="{{ route('dinkes.puskesmas.ranking', $item->id) }}"
+                                            class="btn btn-success btn-sm rounded-0"><i class="fa fa-eye"></i>
+                                            Lihat Ranking
+                                        </a>
+                                    @endif
                                     <a href="{{ route('dinkes.puskesmas.rekap', $item->id) }}"
                                         class="btn btn-primary btn-sm rounded-0"><i class="fa fa-user"></i>
                                         Rekap Kebutuhan Tenaga Medis
                                     </a>
-                                    <a href="{{ route('dinkes.puskesmas.rekap', $item->id) }}"
+                                    <a href="{{ route('puskesmas.medis', $item->id) }}"
                                         class="btn btn-default btn-sm rounded-0"><i class="fa fa-user"></i>
                                         Data Tenaga Medis
                                     </a>

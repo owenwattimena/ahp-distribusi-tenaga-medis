@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Kriteria;
 use App\Models\Prioritas;
 use App\Models\Alternatif;
+use App\Models\TenagaMedis;
 use Illuminate\Http\Request;
 use App\Models\DataPuskesmas;
 use App\Models\RekapDistribusi;
@@ -119,5 +120,91 @@ class PuskesmasController extends Controller
         ];
         return redirect()->back()->with($alert);
 
+    }
+
+    public function medis($id){
+        $data['puskesmas'] = User::findOrFail($id);
+        $data['tenagaMedis'] = TenagaMedis::where('id_puskesmas', $id)->with('alternatif')->get();
+        return view('bkd.puskesmas.medis',$data);   
+    }
+    
+    public function tambahMedis($id){
+        $data['puskesmas'] = User::findOrFail($id);
+        $data['alternatif'] = Alternatif::all();
+        return view('bkd.puskesmas.tambahmedis',$data);   
+    }
+    public function ubahMedis($id, $idMedis){
+        $data['puskesmas'] = User::findOrFail($id);
+        $data['alternatif'] = Alternatif::all();
+        $data['tenagaMedis'] = TenagaMedis::findOrFail($idMedis);
+        return view('bkd.puskesmas.ubahmedis',$data);   
+    }
+
+    public function postMedis(Request $request, $id)
+    {
+        $request->validate([
+            "nik" => "required",
+            "nama" => "required",
+            "nip" => "required",
+            "tanggal_lahir" => "required",
+            "status" => "required",
+            "jenis_kelamin" => "required",
+            "jenis_tenaga" => "required",
+            "nomor_str" => "required",
+            "tanggal_awal_str" => "required",
+            "tanggal_akhir_str" => "required",
+            "sip" => "required",
+            "tanggal_sip" => "required"
+        ]);
+        try {
+            $request->merge(["id_puskesmas" => $id]);
+            // dd($request->all());
+            TenagaMedis::create( $request->except('_token'));
+            $alert = [
+                "tipe" => "alert-success",
+                "pesan"  => "Data medis berhasil disimpan!"
+            ];
+            return redirect()->route('puskesmas.medis',['id' => $id])->with($alert);
+        } catch (Exception $e) {
+            $alert = [
+                "tipe" => "alert-danger",
+                "pesan"  => "Data medis gagal disimpan!" . $e->getMessage()
+            ];
+            return redirect()->back()->with($alert);
+        }
+    }
+    public function putMedis(Request $request, $id, $idMedis)
+    {
+        $tenagaMedis = TenagaMedis::findOrFail($idMedis);
+        $request->validate([
+            "nik" => "required",
+            "nama" => "required",
+            "nip" => "required",
+            "tanggal_lahir" => "required",
+            "status" => "required",
+            "jenis_kelamin" => "required",
+            "jenis_tenaga" => "required",
+            "nomor_str" => "required",
+            "tanggal_awal_str" => "required",
+            "tanggal_akhir_str" => "required",
+            "sip" => "required",
+            "tanggal_sip" => "required"
+        ]);
+        try {
+            $request->merge(["id_puskesmas" => $id]);
+            // dd($request->all());
+            $tenagaMedis->update( $request->except('_token'));
+            $alert = [
+                "tipe" => "alert-success",
+                "pesan"  => "Data medis berhasil diubah!"
+            ];
+            return redirect()->route('puskesmas.medis',['id' => $id])->with($alert);
+        } catch (Exception $e) {
+            $alert = [
+                "tipe" => "alert-danger",
+                "pesan"  => "Data medis gagal diubah!" . $e->getMessage()
+            ];
+            return redirect()->back()->with($alert);
+        }
     }
 }

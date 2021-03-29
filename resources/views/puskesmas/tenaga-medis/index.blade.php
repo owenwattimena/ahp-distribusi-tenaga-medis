@@ -12,38 +12,51 @@
 @endsection
 
 @section('page')
-    Sub Kriteria
+    Data Tenaga Medis
 @endsection
 
 @section('path')
     <li><a href="{{ url('/') }}">Home</a></li>
-    <li><a href="{{ url('/kriteria') }}">Kriteria</a></li>
-    <li class="active">Sub Kriteria</li>
+    <li class="active">Tenaga Medis</li>
 @endsection
 
 @section('content')
     <div class="row">
         <div class="col-md-12">
+
+
             <div class="table-responsive">
                 <table id="table" class="table table-sm table-striped">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Puskesmas</th>
+                            <th>NIK</th>
+                            <th>NAMA</th>
+                            <th>NIP</th>
+                            <th>Tempat, Tanggal Lahir</th>
+                            <th>Status</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Jenis Tenaga</th>
+                            <th>Nomor STR</th>
+                            <th>Masa Berlaku STR</th>
+                            <th>SIP</th>
                         </tr>
                     </thead>
                     <tbody>
-
                         @php
                             $no = 0;
                         @endphp
-                        @foreach ($puskesmas as $item)
-                            <tr>
-                                <td>{{ ++$no }}</td>
-                                <td>{{ $item->nama }}</td>
-                            </tr>
+                        @foreach ($tenagaMedis as $item)
+                            <td>{{ $item->nik }}</td>
+                            <td>{{ $item->nama }}</td>
+                            <td>{{ $item->nip }}</td>
+                            <td>{{ $item->tanggal_lahir }}</td>
+                            <td>{{ $item->status }}</td>
+                            <td>{{ $item->jenis_kelamin == 'l' ? 'Laki-laki' : 'Perempuan' }}</td>
+                            <td>{{ $item->alternatif->alternatif }}</td>
+                            <td>{{ $item->nomor_str }}</td>
+                            <td>{{ $item->tanggal_awal_str }} s/d {{ $item->tanggal_akhir_str }}</td>
+                            <td>{{ $item->sip }}</td>
                         @endforeach
-
                     </tbody>
                 </table>
             </div>

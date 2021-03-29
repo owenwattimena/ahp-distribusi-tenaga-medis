@@ -86,6 +86,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('/data', [DataController::class, 'index'])->name('puskesmas.data');
     Route::post('/data', [DataController::class, 'post'])->name('puskesmas.data.post');
+    Route::get('/tenaga-medis', [DataController::class, 'tenagaMedis'])->name('puskesmas.tenaga.medis');
     
     // =========================================================================================== //
     
@@ -95,6 +96,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{id}/rekap', [PuskesmasController::class, 'rekap'])->name('dinkes.puskesmas.rekap');
         Route::get('/{id}/rekap/tambah', [PuskesmasController::class, 'tambahRekap'])->name('dinkes.puskesmas.rekap.tambah');
         Route::post('/{id}/rekap/tambah', [PuskesmasController::class, 'postRekap'])->name('dinkes.puskesmas.rekap.post');
+        Route::get('/{id}/medis', [PuskesmasController::class, 'medis'])->name('puskesmas.medis');
+        Route::get('/{id}/medis/tambah', [PuskesmasController::class, 'tambahMedis'])->name('puskesmas.medis.tambah');
+        Route::post('/{id}/medis/tambah', [PuskesmasController::class, 'postMedis'])->name('puskesmas.medis.post');
+        Route::get('/{id}/medis/{idMedis}/ubah', [PuskesmasController::class, 'ubahMedis'])->name('puskesmas.medis.ubah');
+        Route::put('/{id}/medis/{idMedis}/ubah', [PuskesmasController::class, 'putMedis'])->name('puskesmas.medis.put');
     });
     // Route::prefix('puskesmas')->group(function () {
     //     Route::get('/', [DataController::class, 'puskesmas'])->name('puskesmas');

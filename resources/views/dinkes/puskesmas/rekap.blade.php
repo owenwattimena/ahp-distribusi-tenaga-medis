@@ -24,12 +24,14 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <div class="text-right" style="margin-bottom:10px">
-                <a href="{{ route('dinkes.puskesmas.rekap.tambah', $puskesmas->id) }}"
-                    class="btn btn-primary btn-sm rounded-0"><i class="fas fa-user-cog"></i>
-                    TAMBAH
-                </a>
-            </div>
+            @if (\Auth::user()->level == 'dinkes')
+                <div class="text-right" style="margin-bottom:10px">
+                    <a href="{{ route('dinkes.puskesmas.rekap.tambah', $puskesmas->id) }}"
+                        class="btn btn-primary btn-sm rounded-0"><i class="fas fa-user-cog"></i>
+                        TAMBAH
+                    </a>
+                </div>
+            @endif
             <div class="table-responsive">
                 <table id="table" class="table table-sm table-striped">
                     <thead>
@@ -38,7 +40,9 @@
                             @foreach ($alternatif as $item)
                                 <th>{{ $item->alternatif }}</th>
                             @endforeach
-                            <th>Aksi</th>
+                            @if (\Auth::user()->level == 'dinkes')
+                                <th>Aksi</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -48,13 +52,15 @@
                                 @foreach ($detailRekap->where('id_rekap_distribusi', $item->id) as $item)
                                     <td>{{ $item->jumlah }}</td>
                                 @endforeach
-                                <td>
-                                    <a href="#" class="btn btn-danger btn-sm rounded-0"
-                                        onclick="return confirm('Yakin ingin menghapus data?')"><i
-                                            class="fas fa-user-cog"></i>
-                                        HAPUS
-                                    </a>
-                                </td>
+                                @if (\Auth::user()->level == 'dinkes')
+                                    <td>
+                                        <a href="#" class="btn btn-danger btn-sm rounded-0"
+                                            onclick="return confirm('Yakin ingin menghapus data?')"><i
+                                                class="fas fa-user-cog"></i>
+                                            HAPUS
+                                        </a>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>

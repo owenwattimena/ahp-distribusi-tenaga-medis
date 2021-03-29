@@ -78,6 +78,10 @@
                     <a class="{{ request()->is('data') ? 'active-menu ' : '' }}"
                         href="{{ route('puskesmas.data') }}"><i class="fa fa-archive"></i> Data Puskesmas</a>
                 </li>
+                <li>
+                    <a class="{{ request()->is('tenaga-medis') ? 'active-menu ' : '' }}"
+                        href="{{ route('puskesmas.tenaga.medis') }}"><i class="fa fa-users"></i> Tenaga Medis</a>
+                </li>
                 @break
                 @case("dinkes")
                 <li>

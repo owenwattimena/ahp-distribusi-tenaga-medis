@@ -4,6 +4,7 @@ namespace App\Http\Controllers\puskesmas;
 
 use App\Models\User;
 use App\Models\Kriteria;
+use App\Models\TenagaMedis;
 use Illuminate\Http\Request;
 use App\Models\DataPuskesmas;
 use App\Http\Controllers\Controller;
@@ -49,9 +50,9 @@ class DataController extends Controller
         return redirect()->back()->with($alert);
     }
 
-    // public function puskesmas()
-    // {
-    //     $data['puskesmas'] = User::where('level', 'puskesmas')->get();
-    //     return view('bkd.puskesmas.index',$data);
-    // }
+    public function tenagaMedis()
+    {
+        $data['tenagaMedis'] = TenagaMedis::where('id_puskesmas', \Auth::user()->id)->with('alternatif')->get();
+        return view('puskesmas.tenaga-medis.index',$data);
+    }
 }

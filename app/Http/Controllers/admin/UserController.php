@@ -69,7 +69,6 @@ class UserController extends Controller
            'username'=> 'required|unique:users']
         );
 
-
         $user           = User::findOrFail($id);
         $user->nama     = $request->nama;
         $user->alamat   = $request->alamat;
