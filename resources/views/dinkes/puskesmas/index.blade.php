@@ -57,6 +57,10 @@
                                         class="btn btn-default btn-sm rounded-0"><i class="fa fa-user"></i>
                                         Data Tenaga Medis
                                     </a>
+                                    <a href="{{ route('laporan', $item->id) }}" class="btn btn-danger btn-sm rounded-0"><i
+                                            class="fa fa-file"></i>
+                                        Unduh Laporan
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

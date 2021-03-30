@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\MatrixController;
 use App\Http\Controllers\admin\RankingController;
 use App\Http\Controllers\admin\KriteriaController;
 use App\Http\Controllers\puskesmas\DataController;
+use App\Http\Controllers\laporan\LaporanController;
 use App\Http\Controllers\admin\AlternatifController;
 use App\Http\Controllers\dinkes\PuskesmasController;
 use App\Http\Controllers\admin\SubKriteriaController;
@@ -101,10 +102,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/{id}/medis/tambah', [PuskesmasController::class, 'postMedis'])->name('puskesmas.medis.post');
         Route::get('/{id}/medis/{idMedis}/ubah', [PuskesmasController::class, 'ubahMedis'])->name('puskesmas.medis.ubah');
         Route::put('/{id}/medis/{idMedis}/ubah', [PuskesmasController::class, 'putMedis'])->name('puskesmas.medis.put');
+        Route::get('/{id}/laporan', [LaporanController::class, 'index'])->name('laporan');
     });
-    // Route::prefix('puskesmas')->group(function () {
-    //     Route::get('/', [DataController::class, 'puskesmas'])->name('puskesmas');
-    // });
-    
-    
 });

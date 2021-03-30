@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 
 class DataController extends Controller
 {
-    //
+
     public function index()
     {
         $data['kriteria'] = Kriteria::with('subkriteria')->get();
