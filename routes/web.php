@@ -93,20 +93,32 @@ Route::middleware(['auth'])->group(function () {
     
     // =========================================================================================== //
     
-    Route::prefix('puskesmas')->group(function () {
-        Route::get('/', [PuskesmasController::class, 'index'])->name('dinkes.puskesmas');
-        Route::get('/{id}/rangking', [PuskesmasController::class, 'rangking'])->name('dinkes.puskesmas.ranking');
-        Route::get('/{id}/rekap', [PuskesmasController::class, 'rekap'])->name('dinkes.puskesmas.rekap');
-        Route::get('/{id}/rekap/tambah', [PuskesmasController::class, 'tambahRekap'])->name('dinkes.puskesmas.rekap.tambah');
-        Route::post('/{id}/rekap/tambah', [PuskesmasController::class, 'postRekap'])->name('dinkes.puskesmas.rekap.post');
-        Route::delete('/{id}/rekap/{idRekap}/delete', [PuskesmasController::class, 'deleteRekap'])->name('dinkes.puskesmas.rekap.delete');
+    Route::middleware(['dinkes-gubernur'])->group(function () {
         
-        Route::get('/{id}/medis', [PuskesmasController::class, 'medis'])->name('puskesmas.medis');
-        Route::get('/{id}/medis/tambah', [PuskesmasController::class, 'tambahMedis'])->name('puskesmas.medis.tambah');
-        Route::post('/{id}/medis/tambah', [PuskesmasController::class, 'postMedis'])->name('puskesmas.medis.post');
-        Route::get('/{id}/medis/{idMedis}/ubah', [PuskesmasController::class, 'ubahMedis'])->name('puskesmas.medis.ubah');
-        Route::put('/{id}/medis/{idMedis}/ubah', [PuskesmasController::class, 'putMedis'])->name('puskesmas.medis.put');
-        Route::delete('/{id}/medis/{idMedis}/delete', [PuskesmasController::class, 'deleteMedis'])->name('puskesmas.medis.delete');
-        Route::get('/{id}/laporan', [LaporanController::class, 'index'])->name('laporan');
+        Route::prefix('puskesmas')->group(function () {
+            
+            Route::get('/', [PuskesmasController::class, 'index'])->name('dinkes.puskesmas');
+            Route::get('/{id}/rekap', [PuskesmasController::class, 'rekap'])->name('dinkes.puskesmas.rekap');
+            
+            Route::middleware(['dinkes'])->group(function () {
+
+                Route::get('/{id}/rangking', [PuskesmasController::class, 'rangking'])->name('dinkes.puskesmas.ranking');
+                Route::get('/{id}/rekap/tambah', [PuskesmasController::class, 'tambahRekap'])->name('dinkes.puskesmas.rekap.tambah');
+                Route::post('/{id}/rekap/tambah', [PuskesmasController::class, 'postRekap'])->name('dinkes.puskesmas.rekap.post');
+                Route::delete('/{id}/rekap/{idRekap}/delete', [PuskesmasController::class, 'deleteRekap'])->name('dinkes.puskesmas.rekap.delete');
+            
+            });
+            
+            Route::get('/{id}/medis', [PuskesmasController::class, 'medis'])->name('puskesmas.medis');
+            
+            Route::middleware(['gubernur'])->group(function () {
+                Route::get('/{id}/medis/tambah', [PuskesmasController::class, 'tambahMedis'])->name('puskesmas.medis.tambah');
+                Route::post('/{id}/medis/tambah', [PuskesmasController::class, 'postMedis'])->name('puskesmas.medis.post');
+                Route::get('/{id}/medis/{idMedis}/ubah', [PuskesmasController::class, 'ubahMedis'])->name('puskesmas.medis.ubah');
+                Route::put('/{id}/medis/{idMedis}/ubah', [PuskesmasController::class, 'putMedis'])->name('puskesmas.medis.put');
+                Route::delete('/{id}/medis/{idMedis}/delete', [PuskesmasController::class, 'deleteMedis'])->name('puskesmas.medis.delete');
+            });
+            Route::get('/{id}/laporan', [LaporanController::class, 'index'])->name('laporan');
+        });
     });
 });
