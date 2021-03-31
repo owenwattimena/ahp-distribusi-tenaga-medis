@@ -12,7 +12,7 @@
 @endsection
 
 @section('page')
-    Data Puskesmas {{ $puskesmas->nama }}
+    Data Tenaga Medis {{ $puskesmas->nama }}
 @endsection
 
 @section('path')
