@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\MatrixController;
 use App\Http\Controllers\admin\RankingController;
@@ -32,9 +33,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     
-    Route::get('/', function () {
-        return view('dashboard.index');
-    })->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     
     
     Route::prefix('kriteria')->group(function () {
@@ -43,12 +42,14 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/tambah', [KriteriaController::class, 'post'])->name('kriteria.post');
         Route::get('/{id}/ubah', [KriteriaController::class, 'edit'])->name('kriteria.ubah');
         Route::put('/{id}/ubah', [KriteriaController::class, 'put'])->name('kriteria.put');
+        Route::delete('/{id}', [KriteriaController::class, 'delete'])->name('kriteria.delete');
     });
     
     Route::prefix('sub-kriteria')->group(function () {
         Route::get('/', [SubKriteriaController::class, 'index'])->name('sub-kriteria');
         Route::get('/tambah', [SubKriteriaController::class, 'create'])->name('sub-kriteria.tambah');
         Route::post('/tambah', [SubKriteriaController::class, 'post'])->name('sub-kriteria.post');
+        Route::delete('/{id}', [SubKriteriaController::class, 'delete'])->name('sub-kriteria.delete');
     });    
     
     Route::prefix('alternatif')->group(function () {
@@ -57,7 +58,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/tambah', [AlternatifController::class, 'post'])->name('alternatif.post');
         Route::get('/{id}/ubah', [AlternatifController::class, 'edit'])->name('alternatif.ubah');
         Route::put('/{id}/ubah', [AlternatifController::class, 'put'])->name('alternatif.put');
-        Route::delete('/{id}/hapus', [AlternatifController::class, 'delete'])->name('alternatif.delete');
+        Route::delete('/{id}', [AlternatifController::class, 'delete'])->name('alternatif.delete');
     });
     
     Route::prefix('matrix')->group(function () {
@@ -79,6 +80,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{id}/ubah', [UserController::class, 'edit'])->name('user.ubah');
         Route::put('/{id}/ubah', [UserController::class, 'put'])->name('user.put');
         Route::put('/{id}/password', [UserController::class, 'password'])->name('user.password');
+        Route::delete('/{id}', [UserController::class, 'delete'])->name('user.delete');
     });
     
     
@@ -97,11 +99,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{id}/rekap', [PuskesmasController::class, 'rekap'])->name('dinkes.puskesmas.rekap');
         Route::get('/{id}/rekap/tambah', [PuskesmasController::class, 'tambahRekap'])->name('dinkes.puskesmas.rekap.tambah');
         Route::post('/{id}/rekap/tambah', [PuskesmasController::class, 'postRekap'])->name('dinkes.puskesmas.rekap.post');
+        Route::delete('/{id}/rekap/{idRekap}/delete', [PuskesmasController::class, 'deleteRekap'])->name('dinkes.puskesmas.rekap.delete');
+        
         Route::get('/{id}/medis', [PuskesmasController::class, 'medis'])->name('puskesmas.medis');
         Route::get('/{id}/medis/tambah', [PuskesmasController::class, 'tambahMedis'])->name('puskesmas.medis.tambah');
         Route::post('/{id}/medis/tambah', [PuskesmasController::class, 'postMedis'])->name('puskesmas.medis.post');
         Route::get('/{id}/medis/{idMedis}/ubah', [PuskesmasController::class, 'ubahMedis'])->name('puskesmas.medis.ubah');
         Route::put('/{id}/medis/{idMedis}/ubah', [PuskesmasController::class, 'putMedis'])->name('puskesmas.medis.put');
+        Route::delete('/{id}/medis/{idMedis}/delete', [PuskesmasController::class, 'deleteMedis'])->name('puskesmas.medis.delete');
         Route::get('/{id}/laporan', [LaporanController::class, 'index'])->name('laporan');
     });
 });

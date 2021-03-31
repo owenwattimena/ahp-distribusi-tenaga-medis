@@ -129,4 +129,35 @@ class UserController extends Controller
         return redirect()->back()->with($alert);
 
     }
+
+    public function delete(Request $request,$id)
+    {
+        
+        try {
+            if(User::findOrFail($id)->delete())
+            {
+                $alert = [
+                    "tipe" => "alert-success",
+                    "pesan" => "User berhasil dihapus!"
+                ];
+                return redirect()->back()->with($alert);
+            }
+            $alert = [
+                "tipe" => "alert-danger",
+                "pesan" => "User gagal dihapus!"
+            ];
+            return redirect()->back()->with($alert);
+            
+        } catch(\Illuminate\Database\QueryException $e){
+            $errorCode = $e->errorInfo[1];
+            if($errorCode == '1451'){
+                $alert = [
+                    "tipe" => "alert-danger",
+                    "pesan"  => "Data user tidak dapat dihapus! data memiliki relasi dengan data lainnya."
+                ];
+                return redirect()->back()->with($alert);
+            }
+        }
+
+    }
 }

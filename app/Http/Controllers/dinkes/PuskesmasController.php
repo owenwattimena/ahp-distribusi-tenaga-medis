@@ -122,6 +122,39 @@ class PuskesmasController extends Controller
 
     }
 
+    public function deleteRekap($id, $idRekap){
+        try {
+            DetailRekapDistribusi::where('id_rekap_distribusi', $idRekap)->delete();
+            if(RekapDistribusi::findOrFail($idRekap)->delete())
+            {
+                $alert = [
+                    "tipe" => "alert-success",
+                    "pesan" => "Data rekap distribusi berhasil dihapus!"
+                ];
+                return redirect()->back()->with($alert);
+            }
+            $alert = [
+                "tipe" => "alert-danger",
+                "pesan" => "Data rekap distribusi gagal dihapus!"
+            ];
+            return redirect()->back()->with($alert);
+            
+        } catch(\Illuminate\Database\QueryException $e){
+            $errorCode = $e->errorInfo[1];
+            if($errorCode == '1451'){
+                $alert = [
+                    "tipe" => "alert-danger",
+                    "pesan"  => "Data rekap distribusi tidak dapat dihapus! data memiliki relasi dengan data lainnya."
+                ];
+                return redirect()->back()->with($alert);
+            }
+        }
+    }
+
+
+
+
+
     public function medis($id){
         $data['puskesmas'] = User::findOrFail($id);
         $data['tenagaMedis'] = TenagaMedis::where('id_puskesmas', $id)->with('alternatif')->get();
@@ -205,6 +238,34 @@ class PuskesmasController extends Controller
                 "pesan"  => "Data medis gagal diubah!" . $e->getMessage()
             ];
             return redirect()->back()->with($alert);
+        }
+    }
+
+    public function deleteMedis($id, $idMedis){
+        try {
+            if(TenagaMedis::findOrFail($idMedis)->delete())
+            {
+                $alert = [
+                    "tipe" => "alert-success",
+                    "pesan" => "Data tenaga medis berhasil dihapus!"
+                ];
+                return redirect()->back()->with($alert);
+            }
+            $alert = [
+                "tipe" => "alert-danger",
+                "pesan" => "Data tenaga medis gagal dihapus!"
+            ];
+            return redirect()->back()->with($alert);
+            
+        } catch(\Illuminate\Database\QueryException $e){
+            $errorCode = $e->errorInfo[1];
+            if($errorCode == '1451'){
+                $alert = [
+                    "tipe" => "alert-danger",
+                    "pesan"  => "Data tenaga medis tidak dapat dihapus! data memiliki relasi dengan data lainnya."
+                ];
+                return redirect()->back()->with($alert);
+            }
         }
     }
 }

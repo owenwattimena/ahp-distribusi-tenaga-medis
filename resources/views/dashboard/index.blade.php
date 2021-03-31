@@ -15,12 +15,12 @@
                 <div class="panel panel-primary">
                     <div class="number">
                         <h3>
-                            <h3>44,023</h3>
-                            <small>Jenis Medis</small>
+                            <h3>{{ count($alternatif) }}</h3>
+                            <small>Alternatif</small>
                         </h3>
                     </div>
                     <div class="icon">
-                        <i class="fa fa-eye fa-5x red"></i>
+                        <i class="fa fa fa-user fa-5x red"></i>
                     </div>
 
                 </div>
@@ -32,12 +32,12 @@
                 <div class="panel panel-primary">
                     <div class="number">
                         <h3>
-                            <h3>32,850</h3>
-                            <small>Sales</small>
+                            <h3>{{ count($kriteria) }}</h3>
+                            <small>Kriteria</small>
                         </h3>
                     </div>
                     <div class="icon">
-                        <i class="fa fa-shopping-cart fa-5x blue"></i>
+                        <i class="fa fa-list fa-5x blue"></i>
                     </div>
 
                 </div>
@@ -49,19 +49,19 @@
                 <div class="panel panel-primary">
                     <div class="number">
                         <h3>
-                            <h3>56,150</h3>
-                            <small>Comments</small>
+                            <h3>{{ count($subkriteria) }}</h3>
+                            <small>Sub Kriteria</small>
                         </h3>
                     </div>
                     <div class="icon">
-                        <i class="fa fa-comments fa-5x green"></i>
+                        <i class="fa fa-list fa-5x green"></i>
                     </div>
 
                 </div>
             </div>
         </div>
 
-        <div class="col-md-3 col-sm-12 col-xs-12">
+        {{-- <div class="col-md-3 col-sm-12 col-xs-12">
             <div class="board">
                 <div class="panel panel-primary">
                     <div class="number">
@@ -76,7 +76,7 @@
 
                 </div>
             </div>
-        </div>
+        </div> --}}
 
     </div>
 @endsection

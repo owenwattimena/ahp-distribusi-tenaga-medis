@@ -48,4 +48,35 @@ class SubKriteriaController extends Controller
         ];
         return redirect()->back()->with($alert);
     }
+
+    public function delete($id)
+    {
+        try {
+            if(Subkriteria::findOrFail($id)->delete())
+            {
+                $alert = [
+                    "tipe" => "alert-success",
+                    "pesan" => "Sub kriteria berhasil dihapus!"
+                ];
+                return redirect()->back()->with($alert);
+            }
+            $alert = [
+                "tipe" => "alert-danger",
+                "pesan" => "Sub kriteria gagal dihapus!"
+            ];
+            return redirect()->back()->with($alert);
+            
+        } catch(\Illuminate\Database\QueryException $e){
+            $errorCode = $e->errorInfo[1];
+            if($errorCode == '1451'){
+                $alert = [
+                    "tipe" => "alert-danger",
+                    "pesan"  => "Data sub kriteria tidak dapat dihapus! data memiliki relasi dengan data lainnya."
+                ];
+                return redirect()->back()->with($alert);
+            }
+        }
+        
+        
+    }
 }

@@ -46,19 +46,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($rekap as $item)
+                        @foreach ($rekap as $item1)
                             <tr>
-                                <td>{{ $item->tahun }}</td>
-                                @foreach ($detailRekap->where('id_rekap_distribusi', $item->id) as $item)
-                                    <td>{{ $item->jumlah }}</td>
+                                <td>{{ $item1->tahun }}</td>
+                                @foreach ($detailRekap->where('id_rekap_distribusi', $item1->id) as $item2)
+                                    <td>{{ $item2->jumlah }}</td>
                                 @endforeach
                                 @if (\Auth::user()->level == 'dinkes')
                                     <td>
-                                        <a href="#" class="btn btn-danger btn-sm rounded-0"
-                                            onclick="return confirm('Yakin ingin menghapus data?')"><i
-                                                class="fas fa-user-cog"></i>
-                                            HAPUS
-                                        </a>
+                                        <form
+                                            action="{{ route('dinkes.puskesmas.rekap.delete', ['id' => $puskesmas->id, 'idRekap' => $item1->id]) }}"
+                                            method="POST" style="display: inline">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-danger btn-sm rounded-0"
+                                                onclick="return confirm('Yakin ingin menghapus data?')"><i
+                                                    class="fas fa-user-cog"></i>
+                                                HAPUS
+                                            </button>
+                                        </form>
                                     </td>
                                 @endif
                             </tr>

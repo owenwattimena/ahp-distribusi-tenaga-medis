@@ -76,22 +76,31 @@ class AlternatifController extends Controller
     public function delete(Request $request,$id)
     {
         
-        $alternatif = Alternatif::findOrFail($id);
-
-        if($alternatif->delete())
-        {
-            $alert = [
-                "tipe" => "alert-success",
-                "pesan" => "Alternatif berhasil dihapus!"
-            ];
-        }
-        else{
+        try {
+            if(Alternatif::findOrFail($id)->delete())
+            {
+                $alert = [
+                    "tipe" => "alert-success",
+                    "pesan" => "Alternatif berhasil dihapus!"
+                ];
+                return redirect()->back()->with($alert);
+            }
             $alert = [
                 "tipe" => "alert-danger",
                 "pesan" => "Alternatif gagal dihapus!"
             ];
+            return redirect()->back()->with($alert);
+            
+        } catch(\Illuminate\Database\QueryException $e){
+            $errorCode = $e->errorInfo[1];
+            if($errorCode == '1451'){
+                $alert = [
+                    "tipe" => "alert-danger",
+                    "pesan"  => "Data alternatif tidak dapat dihapus! data memiliki relasi dengan data lainnya."
+                ];
+                return redirect()->back()->with($alert);
+            }
         }
-        return redirect()->back()->with($alert);
 
     }
 }

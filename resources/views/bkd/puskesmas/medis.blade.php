@@ -76,11 +76,17 @@
                                         class="btn btn-warning btn-sm rounded-0"><i class="fas fa-user-cog"></i>
                                         UBAH
                                     </a>
-                                    <a href="#" class="btn btn-danger btn-sm rounded-0"
-                                        onclick="return confirm('Yakin ingin menghapus data?')"><i
-                                            class="fas fa-user-cog"></i>
-                                        HAPUS
-                                    </a>
+                                    <form
+                                        action="{{ route('puskesmas.medis.delete', ['id' => $puskesmas->id, 'idMedis' => $item->id]) }}"
+                                        method="POST" style="display: inline">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger btn-sm rounded-0"
+                                            onclick="return confirm('Yakin ingin menghapus data?')"><i
+                                                class="fas fa-user-cog"></i>
+                                            HAPUS
+                                        </button>
+                                    </form>
                                 </td>
                             @endif
                         @endforeach
