@@ -20,6 +20,12 @@ class SubKriteriaController extends Controller
         $data['kriteria'] = Kriteria::all();
         return view('admin.kriteria.subkriteria.create',$data);
     }
+    public function edit($id)
+    {
+        $data['subkriteria'] = Subkriteria::findOrFail($id);
+        $data['kriteria'] = Kriteria::all();
+        return view('admin.kriteria.subkriteria.edit',$data);
+    }
 
     public function post(Request $request)
     {
@@ -31,6 +37,34 @@ class SubKriteriaController extends Controller
         );
 
         $subkriteria = new Subkriteria;
+        $subkriteria->id_kriteria = $request->id_kriteria;
+        $subkriteria->nama = $request->nama;
+
+        if($subkriteria->save())
+        {
+            $alert = [
+                "tipe" => "alert-success",
+                "pesan" => "Sub kriteria berhasil disimpan!"
+            ];
+            return redirect()->route("sub-kriteria")->with($alert);
+        }
+        $alert = [
+            "tipe" => "alert-danger",
+            "pesan" => "Sub kriteria gagal disimpan!"
+        ];
+        return redirect()->back()->with($alert);
+    }
+
+    public function put(Request $request, $id)
+    {
+        $request->validate(
+            [
+                'id_kriteria' => 'required',
+                'nama'  => 'required'
+            ]
+        );
+
+        $subkriteria = Subkriteria::findOrFail($id);
         $subkriteria->id_kriteria = $request->id_kriteria;
         $subkriteria->nama = $request->nama;
 

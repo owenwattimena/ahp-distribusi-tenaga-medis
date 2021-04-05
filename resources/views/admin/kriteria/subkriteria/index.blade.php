@@ -51,7 +51,7 @@
                                 <td>{{ $data->kriteria->nama }}</td>
                                 <td>{{ $data->kriteria->kode }}</td>
                                 <td>
-                                    <a href="{{ route('kriteria.ubah', $data->id) }}"
+                                    <a href="{{ route('sub-kriteria.ubah', $data->id) }}"
                                         class="btn btn-warning btn-sm rounded-0"><i class="fas fa-user-cog"></i>
                                         UBAH
                                     </a>

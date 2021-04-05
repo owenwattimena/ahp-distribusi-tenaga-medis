@@ -49,6 +49,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [SubKriteriaController::class, 'index'])->name('sub-kriteria');
         Route::get('/tambah', [SubKriteriaController::class, 'create'])->name('sub-kriteria.tambah');
         Route::post('/tambah', [SubKriteriaController::class, 'post'])->name('sub-kriteria.post');
+        Route::get('/{id}/ubah', [SubKriteriaController::class, 'edit'])->name('sub-kriteria.ubah');
+        Route::put('/{id}/ubah', [SubKriteriaController::class, 'put'])->name('sub-kriteria.put');
         Route::delete('/{id}', [SubKriteriaController::class, 'delete'])->name('sub-kriteria.delete');
     });    
     
