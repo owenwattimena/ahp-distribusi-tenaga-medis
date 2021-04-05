@@ -78,6 +78,7 @@
     <h1 class="text-center">LAPORAN DISTRIBUSI TENAGA MEDIS</h1>
     <h2 class="text-center">{{ $puskesmas->nama }}</h2>
 
+    <p class="font-weight-bold">HASIL PERENGKINGAN AHP</p>
     <table id="table" class="mt-5 table-sm mb-5" width="100%">
         <thead>
             <tr class="text-center">
@@ -103,6 +104,7 @@
             @endforelse
         </tbody>
     </table>
+    <p class="font-weight-bold">JUMLAH KEBUTUHAN TENAGA MEDIS</p>
     <table id="table" class="mt-5 table-sm mb-5" width="100%">
         <thead>
             <tr>
@@ -127,6 +129,7 @@
             @endforelse
         </tbody>
     </table>
+    <p class="font-weight-bold">DAFTAR TENAGA MEDIS</p>
     <table id="table" class="mt-5 table-sm mb-5" width="100%">
         <thead>
             <tr>

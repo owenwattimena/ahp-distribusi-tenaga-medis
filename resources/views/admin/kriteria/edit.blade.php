@@ -1,7 +1,7 @@
 @extends('templates.templates')
 
 @section('page')
-    Tambah <small>
+    Ubah <small>
         Kriteria
     </small>
 @endsection
@@ -9,7 +9,7 @@
 @section('path')
     <li><a href="{{ url('/') }}">Home</a></li>
     <li><a href="{{ route('kriteria') }}">Kriteria</a></li>
-    <li class="active">Tambah</li>
+    <li class="active">Ubah</li>
 @endsection
 
 @section('content')
