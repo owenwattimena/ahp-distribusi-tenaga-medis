@@ -11,10 +11,10 @@
                     </h3>
                 </li>
                 @break
-                @case('gubernur')
+                @case('walikota')
                 <li class="pb-3 text-center text-white">
                     <img width="80" src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Lambang_Ambon.png"
-                        alt="LOGO gubernur">
+                        alt="LOGO walikota">
                     <h3>
                         {{ \Auth::user()->nama }}
                     </h3>
