@@ -24,7 +24,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            @if (\Auth::user()->level == 'gubernur')
+            @if (\Auth::user()->level == 'walikota')
 
                 <div class="text-right" style="margin-bottom:10px">
                     <a href="{{ route('puskesmas.medis.tambah', $puskesmas->id) }}"
@@ -48,7 +48,7 @@
                             <th>Nomor STR</th>
                             <th>Masa Berlaku STR</th>
                             <th>SIP</th>
-                            @if (\Auth::user()->level == 'gubernur')
+                            @if (\Auth::user()->level == 'walikota')
                                 <th>
                                     AKSI
                                 </th>
@@ -60,37 +60,37 @@
                             $no = 0;
                         @endphp
                         @foreach ($tenagaMedis as $item)
-                        <tr>
-                            <td>{{ $item->nik }}</td>
-                            <td>{{ $item->nama }}</td>
-                            <td>{{ $item->nip }}</td>
-                            <td>{{ $item->tanggal_lahir }}</td>
-                            <td>{{ $item->status }}</td>
-                            <td>{{ $item->jenis_kelamin == 'l' ? 'Laki-laki' : 'Perempuan' }}</td>
-                            <td>{{ $item->alternatif->alternatif }}</td>
-                            <td>{{ $item->nomor_str }}</td>
-                            <td>{{ $item->tanggal_awal_str }} s/d {{ $item->tanggal_akhir_str }}</td>
-                            <td>{{ $item->sip }}</td>
-                            @if (\Auth::user()->level == 'gubernur')
-                                <td>
-                                    <a href="{{ route('puskesmas.medis.ubah', ['id' => $puskesmas->id, 'idMedis' => $item->id]) }}"
-                                        class="btn btn-warning btn-sm rounded-0"><i class="fas fa-user-cog"></i>
-                                        UBAH
-                                    </a>
-                                    <form
-                                        action="{{ route('puskesmas.medis.delete', ['id' => $puskesmas->id, 'idMedis' => $item->id]) }}"
-                                        method="POST" style="display: inline">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-danger btn-sm rounded-0"
-                                            onclick="return confirm('Yakin ingin menghapus data?')"><i
-                                                class="fas fa-user-cog"></i>
-                                            HAPUS
-                                        </button>
-                                    </form>
-                                </td>
-                            @endif
-                        </tr>
+                            <tr>
+                                <td>{{ $item->nik }}</td>
+                                <td>{{ $item->nama }}</td>
+                                <td>{{ $item->nip }}</td>
+                                <td>{{ $item->tanggal_lahir }}</td>
+                                <td>{{ $item->status }}</td>
+                                <td>{{ $item->jenis_kelamin == 'l' ? 'Laki-laki' : 'Perempuan' }}</td>
+                                <td>{{ $item->alternatif->alternatif }}</td>
+                                <td>{{ $item->nomor_str }}</td>
+                                <td>{{ $item->tanggal_awal_str }} s/d {{ $item->tanggal_akhir_str }}</td>
+                                <td>{{ $item->sip }}</td>
+                                @if (\Auth::user()->level == 'walikota')
+                                    <td>
+                                        <a href="{{ route('puskesmas.medis.ubah', ['id' => $puskesmas->id, 'idMedis' => $item->id]) }}"
+                                            class="btn btn-warning btn-sm rounded-0"><i class="fas fa-user-cog"></i>
+                                            UBAH
+                                        </a>
+                                        <form
+                                            action="{{ route('puskesmas.medis.delete', ['id' => $puskesmas->id, 'idMedis' => $item->id]) }}"
+                                            method="POST" style="display: inline">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-danger btn-sm rounded-0"
+                                                onclick="return confirm('Yakin ingin menghapus data?')"><i
+                                                    class="fas fa-user-cog"></i>
+                                                HAPUS
+                                            </button>
+                                        </form>
+                                    </td>
+                                @endif
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
