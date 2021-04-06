@@ -16,7 +16,7 @@ class Gubernur
      */
     public function handle(Request $request, Closure $next)
     {
-        if(\Auth::user()->level != 'gubernur')
+        if(\Auth::user()->level != 'walikota')
         {
             return abort(404);
         }

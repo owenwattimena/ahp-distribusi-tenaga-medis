@@ -16,7 +16,7 @@ class KesGub
      */
     public function handle(Request $request, Closure $next)
     {
-        if(\Auth::user()->level == 'gubernur' || \Auth::user()->level == 'dinkes')
+        if(\Auth::user()->level == 'walikota' || \Auth::user()->level == 'dinkes')
         {
             return $next($request);
         }
