@@ -89,7 +89,7 @@
                         href="{{ route('dinkes.puskesmas') }}"><i class="fa fa-archive"></i> Data Puskesmas</a>
                 </li>
                 @break
-                @case("gubernur")
+                @case("walikota")
                 <li>
                     <a class="{{ request()->is('puskesmas') ? 'active-menu ' : '' }}"
                         href="{{ route('dinkes.puskesmas') }}"><i class="fa fa-archive"></i> Data Puskesmas</a>
