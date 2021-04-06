@@ -62,7 +62,7 @@
                     </div>
                 </div>
             </div>
-        @elseif(\Auth::user()->level == 'dinkes' || \Auth::user()->level == 'gubernur')
+        @elseif(\Auth::user()->level == 'dinkes' || \Auth::user()->level == 'walikota')
             <div class="col-md-3 col-sm-12 col-xs-12">
                 <div class="board">
                     <div class="panel panel-primary">
