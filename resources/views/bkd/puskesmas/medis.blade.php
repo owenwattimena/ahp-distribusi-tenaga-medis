@@ -60,6 +60,7 @@
                             $no = 0;
                         @endphp
                         @foreach ($tenagaMedis as $item)
+                        <tr>
                             <td>{{ $item->nik }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>{{ $item->nip }}</td>
@@ -89,6 +90,7 @@
                                     </form>
                                 </td>
                             @endif
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>
