@@ -13,7 +13,7 @@
                 case 'dinkes':
                     $bg = '#16b3ac';
                     break;
-                case 'gubernur':
+                case 'walikota':
                     $bg = '#009b4c';
                     break;
                 case 'puskesmas':
