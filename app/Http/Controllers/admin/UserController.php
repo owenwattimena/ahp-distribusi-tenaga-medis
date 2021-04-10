@@ -66,7 +66,7 @@ class UserController extends Controller
             ['nama'=> 'required',
            'alamat'=> 'required',
            'level'=> 'required',
-           'username'=> 'required|unique:users']
+           'username'=> 'required']
         );
 
         $user           = User::findOrFail($id);
